@@ -29,11 +29,11 @@ sudo chown prometheus:prometheus /var/lib/prometheus
 
 # Download Binaries
 cd /tmp
-wget https://github.com/prometheus/prometheus/releases/download/v2.0.0/prometheus-2.0.0.linux-amd64.tar.gz
-wget https://github.com/prometheus/alertmanager/releases/download/v0.12.0/alertmanager-0.12.0.linux-amd64.tar.gz
-wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.11.0/blackbox_exporter-0.11.0.linux-amd64.tar.gz
-wget https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz
-wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_4.6.3_amd64.deb
+wget https://raw.githubusercontent.com/vinodibs/package/master/alertmanager-0.12.0.linux-amd64.tar.gz
+wget https://raw.githubusercontent.com/vinodibs/package/master/prometheus-2.0.0.linux-amd64.tar.gz
+wget https://raw.githubusercontent.com/vinodibs/package/master/grafana_4.6.3_amd64.deb
+wget https://raw.githubusercontent.com/vinodibs/package/master/node_exporter-0.15.2.linux-amd64.tar.gz
+wget https://raw.githubusercontent.com/vinodibs/package/master/blackbox_exporter-0.11.0.linux-amd64.tar.gz
 
 # Untar Binaries
 tar xvzf prometheus-2.0.0.linux-amd64.tar.gz
