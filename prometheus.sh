@@ -75,12 +75,26 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['localhost:9100']
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - http://localhost
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: localhost:9115
 EOF
 	 
 ###########	 
 cat >> /etc/blackbox/blackbox.yml <<-EOF
 modules:
-  http_2xx_example:
+  http_2xx:
     prober: http
     timeout: 5s
     http:
@@ -108,7 +122,7 @@ route:
 receivers:
 - name: 'team-X-mails'
   email_configs:
-  - to: 'devops@impressico.com'
+  - to: 'devops@impressico.co'
 EOF
 
 ###########
