@@ -17,7 +17,6 @@ sudo mkdir /etc/alertmanager/template
 sudo mkdir /etc/blackbox
 sudo mkdir /var/lib/prometheus
 sudo mkdir /etc/mysql_exporter
-sudo touch /etc/mysql_exporter/.my.cnf
 
 # Create Configureation Files
 sudo touch /etc/prometheus/prometheus.yml
