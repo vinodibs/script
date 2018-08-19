@@ -245,6 +245,7 @@ sudo systemctl restart grafana-server
 sudo systemctl restart alertmanager
 sudo systemctl restart blackbox_exporter
 sudo systemctl restart node_exporter
+sudo systemctl start mysql_exporter
 
 ########## Enable Services
 sudo systemctl enable prometheus
@@ -252,3 +253,4 @@ sudo systemctl enable grafana
 sudo systemctl enable alertmanager
 sudo systemctl enable blackbox_exporter
 sudo systemctl enable node_exporter
+sudo systemctl enable mysql_exporter
