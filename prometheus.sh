@@ -39,12 +39,14 @@ wget https://raw.githubusercontent.com/vinodibs/package/master/prometheus-2.0.0.
 wget https://raw.githubusercontent.com/vinodibs/package/master/grafana_4.6.3_amd64.deb
 wget https://raw.githubusercontent.com/vinodibs/package/master/node_exporter-0.15.2.linux-amd64.tar.gz
 wget https://raw.githubusercontent.com/vinodibs/package/master/blackbox_exporter-0.11.0.linux-amd64.tar.gz
+wget https://raw.githubusercontent.com/vinodibs/package/master/mysqld_exporter-0.10.0.linux-amd64.tar.gz
 
 # Untar Binaries
 tar xvzf prometheus-2.0.0.linux-amd64.tar.gz
 tar xvzf alertmanager-0.12.0.linux-amd64.tar.gz
 tar xvzf blackbox_exporter-0.11.0.linux-amd64.tar.gz
 tar xvzf node_exporter-0.15.2.linux-amd64.tar.gz
+tar xvzf mysqld_exporter-0.10.0.linux-amd64.tar.gz
 
 # Copy Binaries to /usr/local/bin (and for main app copy libs...)
 sudo cp prometheus-2.0.0.linux-amd64/prometheus /usr/local/bin/
