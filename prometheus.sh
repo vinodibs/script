@@ -7,6 +7,7 @@ sudo adduser --no-create-home --disabled-login --shell /bin/false --gecos "Prome
 sudo adduser --no-create-home --disabled-login --shell /bin/false --gecos "Node Exporter User" node_exporter
 sudo adduser --no-create-home --disabled-login --shell /bin/false --gecos "Alertmanager User" alertmanager
 sudo adduser --no-create-home --disabled-login --shell /bin/false --gecos "Blackbox Exporter User" blackbox_exporter
+sudo adduser --no-create-home --disabled-login --shell /bin/false --gecos "MySQL exporter user" mysql_exporter
 
 # Create Directories
 sudo mkdir /etc/prometheus
@@ -15,17 +16,21 @@ sudo mkdir /etc/alertmanager/data
 sudo mkdir /etc/alertmanager/template
 sudo mkdir /etc/blackbox
 sudo mkdir /var/lib/prometheus
+sudo mkdir /etc/mysql_exporter
+sudo touch /etc/mysql_exporter/.my.cnf
 
 # Create Configureation Files
 sudo touch /etc/prometheus/prometheus.yml
 sudo touch /etc/alertmanager/alertmanager.yml
 sudo touch /etc/blackbox/blackbox.yml
+sudo touch /etc/mysql_exporter/.my.cnf
 
 # Ownship Assign
 sudo chown -R prometheus:prometheus /etc/prometheus
 sudo chown -R alertmanager:alertmanager /etc/alertmanager
 sudo chown -R blackbox_exporter:blackbox_exporter /etc/blackbox
 sudo chown prometheus:prometheus /var/lib/prometheus
+sudo chown -R mysql_exporter:mysql_exporter /etc/mysql_exporter
 
 # Download Binaries
 cd /tmp
@@ -50,6 +55,7 @@ sudo cp alertmanager-0.12.0.linux-amd64/alertmanager /usr/local/bin/
 sudo cp alertmanager-0.12.0.linux-amd64/amtool /usr/local/bin/
 sudo cp blackbox_exporter-0.11.0.linux-amd64/blackbox_exporter /usr/local/bin/
 sudo cp node_exporter-0.15.2.linux-amd64/node_exporter /usr/local/bin/
+sudo cp mysqld_exporter-0.10.0.linux-amd64/mysqld_exporter /usr/local/bin/
 
 # Assing Ownership
 sudo chown -R prometheus:prometheus /etc/prometheus/consoles
@@ -60,6 +66,7 @@ sudo chown alertmanager:alertmanager /usr/local/bin/alertmanager
 sudo chown alertmanager:alertmanager /usr/local/bin/amtool
 sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 sudo chown blackbox_exporter:blackbox_exporter /usr/local/bin/blackbox_exporter
+sudo chown mysql_exporter:mysql_exporter /usr/local/bin/mysqld_exporter
 
 ###########
 cat >> /etc/prometheus/prometheus.yml <<-EOF
@@ -89,6 +96,11 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: localhost:9115
+  - job_name: 'mysql_exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+        - localhost:9104	
 EOF
 	 
 ###########	 
@@ -123,6 +135,13 @@ receivers:
 - name: 'team-X-mails'
   email_configs:
   - to: 'devops@impressico.co'
+EOF
+
+###########
+cat >> /etc/mysql_exporter/.my.cnf <<-EOF
+[client]
+user=db_user
+password=db_password
 EOF
 
 ###########
@@ -192,6 +211,24 @@ User=alertmanager
 Group=alertmanager
 Type=simple
 ExecStart=/usr/local/bin/alertmanager --config.file /etc/alertmanager/alertmanager.yml --storage.path /etc/alertmanager/data
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+########### MySql Exporter
+cat >> /etc/systemd/system/mysql_exporter.service <<-EOF
+[Unit]
+Description=Prometheus MySQL Exporter
+After=network.target
+
+[Service]
+User=mysql_exporter
+Group=mysql_exporter
+Type=simple
+ExecStart=/usr/local/bin/mysqld_exporter \
+    --config.my-cnf="/etc/mysql_exporter/.my.cnf"
 Restart=always
 
 [Install]
