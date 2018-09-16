@@ -46,7 +46,7 @@ frontend HA-http
 
 
 frontend HA-https
-    bind *:443 ssl crt /etc/ssl/private/$FQDN.pem
+    bind *:443 ssl crt /etc/pki/tls/certs/$FQDN.pem
     reqadd X-Forwarded-Proto:\ https
     default_backend web-backend
 
