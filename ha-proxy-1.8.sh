@@ -9,6 +9,7 @@ read website_name2
 echo "Your input  $website_name1"
 echo "Your input  $website_name2"
 
+###########################################
 while true; do
     read -p "Do you want to continue with above input |||| Press y|Y for Yes, n|N for Yes: " yn
     case $yn in
