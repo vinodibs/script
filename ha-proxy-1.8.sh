@@ -5,6 +5,7 @@ read website_name1
 
 echo Put Here, your Another Website Name alongwith ip add. with space - Ex, site2.example.com   192.168.0.2 
 read website_name2
+
 echo "Your input  $website_name1"
 echo "Your input  $website_name2"
 
