@@ -6,6 +6,11 @@ read website_name1
 echo Put Here, your Another Website Name alongwith ip add. with space - Ex, site2.example.com   192.168.0.2 
 read website_name2
 
+while true; do
+    read -p "Do you wish to run this script |||| Press y|Y for Yes, n|N for Yes: " yn
+    case $yn in
+    [Yy]* ) 
+
 #### Debug Enabling ####
 set -x
 
@@ -78,3 +83,9 @@ sudo echo "local1.*    "-/var/log/haproxy_1.log" " >> /etc/rsyslog.conf
 #### Restart & Enable rsyslog service ####
 sudo systemctl restart rsyslog
 sudo systemctl enable rsyslog
+
+break;;
+[Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
