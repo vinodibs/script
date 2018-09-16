@@ -1,10 +1,10 @@
 #!/bin/bash
 
 echo Put Here, your Website Name alongwith ip add. with space  - Ex, site1.example.com   192.168.0.1 
-read $website_name1
+read website_name1
 
 echo Put Here, your Another Website Name alongwith ip add. with space - Ex, site2.example.com   192.168.0.2 
-read $website_name2
+read website_name2
 
 #### Debug Enabling ####
 set -x
