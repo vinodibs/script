@@ -1,0 +1,23 @@
+pipeline {
+agent {label '192.168.0.27'}
+ stages {
+  stage ('Build') {	
+	  steps {
+      script {
+           if (action.equals('start')) {
+		   sh '''
+		   export AWS_DEFAULT_REGION=$region
+		   aws ec2 start-instances --instance-ids $(aws ec2 describe-instances --filters  "Name=tag:Name,Values=$tags_name" --query "Reservations[].Instances[].[InstanceId]" --output text | tr '\n' ' ')
+		   '''
+		   }
+           else if (action.equals('stop')) {
+		  sh '''
+		  export AWS_DEFAULT_REGION=$region
+		  aws ec2 stop-instances --instance-ids $(aws ec2 describe-instances --filters  "Name=tag:Name,Values=$tags_name" --query "Reservations[].Instances[].[InstanceId]" --output text | tr '\n' ' ')
+		   '''
+		     }
+        }
+      }  
+		}
+	}
+}
