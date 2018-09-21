@@ -1,4 +1,5 @@
 #!/bin/bash
+# Before run this script make sure aws configure setup working properly.
 
 # Git Add Config 
 git config --global credential.helper '!aws codecommit credential-helper $@'
