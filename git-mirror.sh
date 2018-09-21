@@ -15,5 +15,5 @@ git remote add sync https://git-codecommit.us-east-1.amazonaws.com/v1/repos/code
 git fetch -p origin
 git push sync --mirror
 
-
-# * * * * * cd ~/tmp/replica && git fetch -p origin && git push sync --mirror
+# Croning 
+# * * * * * cd ~/Documents/replica/ && git fetch -p origin && git push sync --mirror
