@@ -5,7 +5,7 @@ git config --global credential.helper '!aws codecommit credential-helper $@'
 git config --global credential.UseHttpPath true
 
 # Git Hub Repository 
-git clone --mirror https://github.com/vinodibs/Automations-Scripts.git replica
+git clone --mirror https://github.com/vinodibs/Automation-Scripts.git replica
 
 # Code Commit Repository
 cd replica/
