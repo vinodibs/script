@@ -8,5 +8,5 @@ else
    echo "Site is down Restart service"
    service httpd restart
    service mysqld stop
-   service mysql start
+   service mysqld start
 fi
