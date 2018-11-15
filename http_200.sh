@@ -6,7 +6,7 @@ then
    echo "Site is up and Running "
 else
    echo "Site is down Restart service"
-   service httpd restart
-   service mysqld stop
-   service mysqld start
+   /etc/init.d/httpd restart > /dev/null
+   /etc/init.d/mysqld stop > /dev/null
+   /etc/init.d/mysqld start > /dev/null
 fi
